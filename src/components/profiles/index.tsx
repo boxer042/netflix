@@ -25,9 +25,10 @@ Profiles.List = function ProfilesList({
 
 export interface IUserProps {
   children: any;
+  onClick: () => void;
 }
-Profiles.User = function ProfilesUser({ children, ...restProps }: IUserProps) {
-  return <Item {...restProps}>{children}</Item>;
+Profiles.User = function ProfilesUser({ children, onClick }: IUserProps) {
+  return <Item onClick={onClick}>{children}</Item>;
 };
 
 Profiles.Picture = function ProfilesPicture({ src, ...restProps }: any) {

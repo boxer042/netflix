@@ -22,7 +22,7 @@ export default function UseContent(target: any) {
       .catch((error: any) => {
         console.log(error.message);
       });
-  }, []);
+  }, [firebase, target]);
 
   return { [target]: content };
 }
