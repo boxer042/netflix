@@ -1,5 +1,5 @@
-import React from "react";
-import { Container, Title, List, Item, Picture, Name } from "./styles/profiles";
+import React from 'react';
+import { Container, Title, List, Item, Picture, Name } from './styles/profiles';
 
 export interface IProfilesProps {
   children: React.ReactNode;
@@ -35,7 +35,7 @@ Profiles.Picture = function ProfilesPicture({ src, ...restProps }: any) {
   return (
     <Picture
       {...restProps}
-      src={src ? `/images/users/${src}.png` : "/images/misc/loading.gif"}
+      src={src ? `/images/users/${src}.png` : '/images/misc/loading.gif'}
     />
   );
 };

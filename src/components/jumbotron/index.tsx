@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 import {
   Inner,
   Container,
@@ -7,7 +7,7 @@ import {
   SubTitle,
   Image,
   Item,
-} from "./styles/jumbotron";
+} from './styles/jumbotron';
 
 export interface IJumbotronProps {
   children: React.ReactNode;
@@ -16,7 +16,7 @@ export interface IJumbotronProps {
 
 export default function Jumbotron({
   children,
-  direction = "row",
+  direction = 'row',
   ...restProps
 }: IJumbotronProps) {
   return (
