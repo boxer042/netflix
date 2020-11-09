@@ -1,8 +1,10 @@
 import React, { useState, useContext, useEffect } from 'react';
+import Fuse from 'fuse.js';
 import * as ROUTES from '../constants/routes';
 import SelectProfileContainer from './profilesContainer';
 import { FirebaseContext } from './../context/firebase';
-import { Loading, Header, Card } from '../components';
+import FooterContainer from './FooterContainer';
+import { Loading, Header, Card, Player } from '../components';
 import logo from '../logo.svg';
 
 export interface IBrowseContainerProps {
@@ -31,6 +33,19 @@ export default function BrowseContainer({ slides }: IBrowseContainerProps) {
   useEffect(() => {
     setSlideRows(slides[category]);
   }, [slides, category]);
+
+  useEffect(() => {
+    const fuse = new Fuse(slideRows, {
+      keys: ['data.description', 'data.title', 'data.genre'],
+    });
+    const results = fuse.search(searchTerm).map(({ item }) => item);
+
+    if (slideRows.length > 0 && searchTerm.length > 3 && results.length > 0) {
+      setSlideRows(results);
+    } else {
+      setSlideRows(slides[category]);
+    }
+  }, [searchTerm]);
 
   return profile.displayName ? (
     <>
@@ -86,6 +101,7 @@ export default function BrowseContainer({ slides }: IBrowseContainerProps) {
           <Header.PlayButton>Play</Header.PlayButton>
         </Header.Feature>
       </Header>
+
       <Card.Group>
         {slideRows.map((slideItem) => (
           <Card key={`${category}-${slideItem.title.toLowerCase()}`}>
@@ -103,10 +119,16 @@ export default function BrowseContainer({ slides }: IBrowseContainerProps) {
                 </Card.Item>
               ))}
             </Card.Entities>
-            <Card.Feature category={category}></Card.Feature>
+            <Card.Feature category={category}>
+              <Player>
+                <Player.Button />
+                <Player.Video src="/videos/bunny.mp4" />
+              </Player>
+            </Card.Feature>
           </Card>
         ))}
       </Card.Group>
+      <FooterContainer />
     </>
   ) : (
     <SelectProfileContainer user={user} setProfile={setProfile} />
